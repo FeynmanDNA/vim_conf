@@ -19,11 +19,11 @@ Plugin 'VundleVim/Vundle.vim' "Vundle itself
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-Plugin 'tpope/vim-sleuth' "from Tom Pope's sleuth
+Plugin 'tpope/vim-sleuth' "from Tim Pope's sleuth
 
 Plugin 'ap/vim-buftabline' "buffer list that lives in the tabline
 
-Plugin 'Shougo/neocomplete.vim' "Japanese programmer's Tab-autocomplete
+Plugin 'Shougo/neocomplete.vim' "Shougo's Tab-autocomplete
 " Omni completion provides smart autocompletion for programs
 set omnifunc=syntaxcomplete#Complete
 let g:neocomplete#enable_at_startup = 1
