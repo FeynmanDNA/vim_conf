@@ -21,8 +21,6 @@ Plugin 'VundleVim/Vundle.vim' "Vundle itself
 
 Plugin 'tpope/vim-sleuth' "from Tim Pope's sleuth
 
-Plugin 'ap/vim-buftabline' "buffer list that lives in the tabline
-
 Plugin 'Shougo/neocomplete.vim' "Shougo's Tab-autocomplete
 " Omni completion provides smart autocompletion for programs
 set omnifunc=syntaxcomplete#Complete
@@ -33,20 +31,14 @@ nmap <leader>a :NeoCompleteToggle<CR>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 "let g:neocomplete#enable_auto_select = 1
 
-Plugin 'jacoborus/tender.vim' "color theme of tender
-" If you have vim >=8.0 or Neovim >= 0.1.5
-if (has("termguicolors"))
- set termguicolors
-endif
-" Theme
-if !exists("g:syntax_on")
-    syntax enable
-endif
+" vim-airline for status/tabline
+" previously tried lightline, buftabline
+Plugin 'vim-airline/vim-airline'
+" enable smart tabline
+let g:airline#extensions#tabline#enabled = 1
 
-Plugin 'itchyny/lightline.vim' "something like powerline and airline
-set laststatus=2 "always show the statusline
-"-- INSERT -- is unnecessary
-set noshowmode
+" PaperColor vim colorscheme
+Plugin 'NLKNguyen/papercolor-theme'
 
 Plugin 'luochen1990/rainbow' "Rainbow Parentheses
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -75,8 +67,12 @@ let g:rainbow_conf = {
 	\	}
 	\}
 
+" for various syntax highlighting
 Plugin 'pangloss/vim-javascript' "for javascript highlight
-
+" dockerfile
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+" nginx
+Plugin 'chr4/nginx.vim'
 
 "file browser
 Bundle 'scrooloose/nerdtree'
@@ -122,14 +118,9 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 " }}} end of Vundle Setup
 
-"syntax on will override the color theme, use syntax enable (above)
 
-" add line number on startup
-set number
-
-" set font and colorscheme
+" set font
 set gfn=Monospace\ 12
-colorscheme tender
 
 set nocursorcolumn
 set nocursorline
@@ -271,3 +262,5 @@ endfunction
 " COLOR
 " force 256 colors on the terminal
 set t_Co=256
+set background=light
+colorscheme PaperColor
