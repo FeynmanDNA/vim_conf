@@ -152,6 +152,8 @@ set smartcase
 
 "The best way to get filetype-specific indentation is to use filetype plugin indent on
 "show existing tab with 4 spaces width
+" must enable smarttab for tab to be converted to 4 space
+set smarttab
 set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
