@@ -262,5 +262,5 @@ endfunction
 " COLOR
 " force 256 colors on the terminal
 set t_Co=256
-set background=light
+set background=dark
 colorscheme PaperColor
