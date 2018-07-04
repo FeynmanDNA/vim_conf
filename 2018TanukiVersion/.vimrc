@@ -73,8 +73,8 @@ let g:rainbow_conf = {
 Plugin 'pangloss/vim-javascript' "for javascript highlight
 " dockerfile
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
-" nginx
-Plugin 'chr4/nginx.vim'
+" nginx (this only detect nginx.conf. other nginxconfs are in the syntax/)
+" Plugin 'chr4/nginx.vim'
 
 "file browser
 Bundle 'scrooloose/nerdtree'
@@ -133,6 +133,15 @@ syntax sync minlines=256
 "shading language like glsl, for graphics are detected by vim for syntax coloring
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 au BufNewFile,BufRead *.cl setf opencl
+
+" for nginx files, this is from Evan Miller's vimscript(script_id=1886)
+" the nginx.vim is in ~/.vim/syntax/
+au BufRead,BufNewFile *.nginx set ft=nginx
+au BufRead,BufNewFile */etc/nginx/* set ft=nginx
+au BufRead,BufNewFile */usr/local/nginx/conf/* set ft=nginx
+au BufRead,BufNewFile nginx.conf set ft=nginx
+au BufRead,BufNewFile */Nginx/* set ft=nginx
+
 
 set winaltkeys=no
 set ai!
