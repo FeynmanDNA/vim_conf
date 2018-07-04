@@ -1,5 +1,7 @@
 " this vimrc is based on Olafs Vandans' version in early 2017
 "
+" set binary to preserve EOL
+set binary
 " Put this at the top of your .vimrc to use Vundle.
 "
 " Start Vundle Setup {{{
@@ -96,7 +98,8 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 "for accelerated smooth scroll (mapping to <C-D>/<C-U>, <C-F>/<C-B>)
-Bundle 'yonchu/accelerated-smooth-scroll'
+" Bundle 'yonchu/accelerated-smooth-scroll'
+" disabled in Jul2018, due to C-D, C-U freezes when fired frequently
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
