@@ -1,9 +1,19 @@
-" this vimrc is based on Olafs Vandans' version in early 2017
+"==========================================
+" Author:  FeynmanDNA
+" Version: 1.3
+" Last_modify: 2018-Aug-06
+" Main_Source: Olafs Vandans' vimrc in early 2017
+" Other_Source: github.com/wklken/vim-for-server
+" Other_Source: github.com/yangyangwithgnu/use_vim_as_ide
+"==========================================
+
+" Notice in Vundle Config, filetype is first turned off
+" then at the end of the Config, filetype is turn back on again
+" All plugins must be declared between the call vundle#rc() line
+" and the filetype plugin indent on directive.
 "
-" set binary to preserve EOL
-set binary
 " Put this at the top of your .vimrc to use Vundle.
-"
+
 " Start Vundle Setup {{{
 " first thing is entering vim mode, not plain vi
 set nocompatible              " be iMproved, required
@@ -21,7 +31,8 @@ Plugin 'VundleVim/Vundle.vim' "Vundle itself
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-Plugin 'tpope/vim-sleuth' "from Tim Pope's sleuth
+" this plugin is designed to automatically adjust the tab vs space
+"Plugin 'tpope/vim-sleuth' "from Tim Pope's sleuth
 
 Plugin 'Shougo/neocomplete.vim' "Shougo's Tab-autocomplete
 " Omni completion provides smart autocompletion for programs
@@ -39,8 +50,15 @@ Plugin 'vim-airline/vim-airline'
 " enable smart tabline
 let g:airline#extensions#tabline#enabled = 1
 
+" to show the git status in airline, also tons of git features in vim
+Plugin 'tpope/vim-fugitive'
+
 " PaperColor vim colorscheme
 Plugin 'NLKNguyen/papercolor-theme'
+" yangyangwithgnu colorschemes
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
+Plugin 'vim-scripts/phd'
 
 Plugin 'luochen1990/rainbow' "Rainbow Parentheses
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -72,12 +90,26 @@ let g:rainbow_conf = {
 " for various syntax highlighting
 Plugin 'pangloss/vim-javascript' "for javascript highlight
 " dockerfile
-Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+" Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 " nginx (this only detect nginx.conf. other nginxconfs are in the syntax/)
 " Plugin 'chr4/nginx.vim'
 
 "file browser
 Bundle 'scrooloose/nerdtree'
+" 使用 NERDTree 插件查看工程文件。设置快捷键
+map <leader><cr> :NERDTreeToggle<CR>
+" 设置NERDTree子窗口宽度
+let NERDTreeWinSize=30
+" 设置NERDTree子窗口位置
+let NERDTreeWinPos="left"
+" 显示隐藏文件
+let NERDTreeShowHidden=1
+" NERDTree 子窗口中不显示冗余帮助信息
+let NERDTreeMinimalUI=1
+" 删除文件时自动删除文件对应 buffer
+let NERDTreeAutoDeleteBuffer=1
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "show git status in file browser, complement the above
 Bundle 'Xuyuanp/nerdtree-git-plugin'
@@ -101,6 +133,15 @@ let g:NERDTreeIndicatorMapCustom = {
 " Bundle 'yonchu/accelerated-smooth-scroll'
 " disabled in Jul2018, due to C-D, C-U freezes when fired frequently
 
+" use fzf for file browsing, need to install fzf first
+set rtp+=~/.fzf
+
+" for undo review
+Plugin 'mbbill/undotree'
+" 调用 undo 树
+nnoremap <F5> :UndotreeToggle<cr>
+"QuickStart Launch using <Leader>u
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -122,13 +163,132 @@ filetype plugin indent on    " required
 " }}} end of Vundle Setup
 
 
+syntax enable
+syntax on
+
+" set binary to preserve EOL
+set binary
+
+" reload the file when changed on disk (need to refresh the buffer)
+set autoread
+" change the terminal's title to the filename
+set title
+" when exit, save a screenshot on the terminal
+set t_ti= t_te=
+" enable vim's native autocomplete for cmd
+set wildmenu
+" display incomplete commands
+set showcmd
+
+" display trailing whitespace and tab visually
+set list
+set listchars=tab:>-,trail:¶,extends:>,precedes:<
+
 " set font
-set gfn=Monospace\ 12
+set guifont=Monospace\ 11
 
 set nocursorcolumn
 set nocursorline
 set mouse=a
 syntax sync minlines=256
+
+"folding settings
+set foldmethod=manual   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "
+
+" COLOR
+" force 256 colors on the terminal
+set t_Co=256
+set background=dark
+" free as in freedom to choose color :)
+"colorscheme PaperColor
+"colorscheme solarized
+colorscheme molokai
+"colorscheme phd
+
+set winaltkeys=no
+set ai!
+set vb!
+set switchbuf=useopen,usetab,newtab
+set exrc
+set secure
+set virtualedit=block
+set vb t_vb=
+set modeline
+
+" 允许不保存buffer而切换buffer
+set hidden
+
+" highlight search
+set hlsearch
+" do incremental searching, search as you type
+set incsearch
+" 禁止在搜索到文件两端时重新搜索
+set nowrapscan
+" search ignore case
+set ignorecase
+" no ignorecase if Uppercase char present
+" 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感
+set smartcase
+
+"The best way to get filetype-specific indentation is to use filetype plugin indent on
+"show existing tab with 4 spaces width
+" must enable smarttab for tab to be converted to 4 space
+"set smarttab
+" use softtabstop=4, so no need for smarttab
+" 4 space = tab
+set softtabstop=4
+" On pressing tab, insert 4 spaces
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" Expand TABs to spaces.
+set expandtab
+
+" do not save a swap tmp backup
+set noswapfile
+
+" when in insert mode, press <F2> to go to
+" paste mode, where you can paste mass data
+" that won't be autoindented
+set pastetoggle=<F2>
+
+" share the clipboard
+set clipboard=unnamedplus
+
+" encoding
+set encoding=utf-8
+set ffs=unix,dos,mac
+
+set timeout ttimeoutlen=50 "set the wait time for keypress
+
+" for gvim
+" 禁止光标闪烁
+set gcr=a:block-blinkon0
+" 禁止显示滚动条
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+" 禁止显示菜单和工具条
+set guioptions-=m
+set guioptions-=T
+
+" ============================ specific file type ===========================
+" sw = shiftwidth, sts = softtabstop, et = expandtab,
+" setl = setlocal, au = autocmd, ai = autoindent
+
+autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
+autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
+
+autocmd FileType javascript,html,css,php,yaml set ts=2 sw=2 sts=2 expandtab ai
+autocmd FileType javascript,css,php set textwidth=0
+autocmd FileType html,htm,xml,tpl,yaml set textwidth=0
+
+autocmd FileType make set noexpandtab
 
 "shading language like glsl, for graphics are detected by vim for syntax coloring
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
@@ -142,46 +302,7 @@ au BufRead,BufNewFile */usr/local/nginx/conf/* set ft=nginx
 au BufRead,BufNewFile nginx.conf set ft=nginx
 au BufRead,BufNewFile */Nginx/* set ft=nginx
 
-
-set winaltkeys=no
-set ai!
-set vb!
-set switchbuf=useopen,usetab,newtab
-set hidden
-set ignorecase
-set hlsearch
-set incsearch
-set smartcase
-
-"The best way to get filetype-specific indentation is to use filetype plugin indent on
-"show existing tab with 4 spaces width
-" must enable smarttab for tab to be converted to 4 space
-set smarttab
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-" On pressing tab, insert 4 spaces
-set expandtab
-" Expand TABs to spaces.
-
-set noswapfile
-set pastetoggle=<F2>
-set clipboard=unnamedplus
-set exrc
-set secure
-set virtualedit=block
-set vb t_vb=
-set modeline
-set ffs=unix,dos,mac
-
-let c='a'
-while c <= 'z'
-	  exec "set <A-".c.">=\e".c
-	    exec "imap \e".c." <A-".c.">"
-	      let c = nr2char(1+char2nr(c))
-endw
-set timeout ttimeoutlen=50 "set the wait time for keypress
-
+" ============================ key map ============================
 "Key mappings
 imap jj <esc>
 "map oo o<Esc>
@@ -234,45 +355,3 @@ nmap <leader>v "+p
 map <leader>w :update<Esc>
 map <leader>q :q
 map <leader>/ <esc>:nohlsearch<cr>
-
-map <leader><cr> :NERDTreeToggle<CR>
-
-
-"folding settings
-set foldmethod=manual   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
-set nofoldenable        "dont fold by default
-set foldlevel=1         "
-
-"Shell
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline)
-  let isfirst = 1
-  let words = []
-  for word in split(a:cmdline)
-    if isfirst
-      let isfirst = 0  " don't change first word (shell command)
-    else
-      if word[0] =~ '\v[%#<]'
-        let word = expand(word)
-      endif
-      let word = shellescape(word, 1)
-    endif
-    call add(words, word)
-  endfor
-  let expanded_cmdline = join(words)
-  botright new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile wrap
-  "call setline(1, 'You entered:  ' . a:cmdline)
-  call setline(1, expanded_cmdline)
-  call append(line('$'), substitute(getline(1), '.', '=', 'g'))
-  silent execute '$read !'. expanded_cmdline
-  1
-endfunction
-
-
-" COLOR
-" force 256 colors on the terminal
-set t_Co=256
-set background=dark
-colorscheme PaperColor
