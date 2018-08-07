@@ -65,27 +65,27 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 "There is an example for advanced configuration (which luochen1990's using)
 "add it to your vimrc and edit it as you wish (just keep the format).
 let g:rainbow_conf = {
-	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-	\	'operators': '_,_',
-	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-	\	'separately': {
-	\		'*': {},
-	\		'tex': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-	\		},
-	\		'lisp': {
-	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-	\		},
-	\		'vim': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-	\		},
-	\		'html': {
-	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-	\		},
-	\		'css': 0,
-	\	}
-	\}
+    \	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+    \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+    \	'operators': '_,_',
+    \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+    \	'separately': {
+    \		'*': {},
+    \		'tex': {
+    \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+    \		},
+    \		'lisp': {
+    \			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+    \		},
+    \		'vim': {
+    \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+    \		},
+    \		'html': {
+    \			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+    \		},
+    \		'css': 0,
+    \	}
+    \}
 
 " for various syntax highlighting
 Plugin 'pangloss/vim-javascript' "for javascript highlight
@@ -99,7 +99,7 @@ Bundle 'scrooloose/nerdtree'
 " 使用 NERDTree 插件查看工程文件。设置快捷键
 map <leader><cr> :NERDTreeToggle<CR>
 " 设置NERDTree子窗口宽度
-let NERDTreeWinSize=30
+let NERDTreeWinSize=25
 " 设置NERDTree子窗口位置
 let NERDTreeWinPos="left"
 " 显示隐藏文件
@@ -140,7 +140,16 @@ set rtp+=~/.fzf
 Plugin 'mbbill/undotree'
 " 调用 undo 树
 nnoremap <F5> :UndotreeToggle<cr>
-"QuickStart Launch using <Leader>u
+
+" orgasmic commenting
+Plugin 'scrooloose/nerdcommenter'
+" 注释的时候自动加个空格, 强迫症必配
+let g:NERDSpaceDelims=1
+" default key mappings:
+"<leader>cc   加注释
+"<leader>cu   解开注释
+"<leader>c<space>  加上/解开注释, 智能判断
+"<leader>cy   先复制, 再注解(p可以进行黏贴)
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -219,6 +228,7 @@ set vb t_vb=
 set modeline
 
 " 允许不保存buffer而切换buffer
+" A buffer becomes hidden when it is abandoned
 set hidden
 
 " highlight search
@@ -282,7 +292,7 @@ set guioptions-=T
 
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
 autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
-autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
+autocmd BufRead,BufNew *.md,*.mkd,*.markdown set filetype=markdown.mkd
 
 autocmd FileType javascript,html,css,php,yaml set ts=2 sw=2 sts=2 expandtab ai
 autocmd FileType javascript,css,php set textwidth=0
