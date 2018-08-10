@@ -1,10 +1,11 @@
 "==========================================
 " Author:  FeynmanDNA
-" Version: 1.3
-" Last_modify: 2018-Aug-06
+" Version: 1.4
+" Last_modify: 2018-Aug-10
 " Main_Source: Olafs Vandans' vimrc in early 2017
 " Other_Source: github.com/wklken/vim-for-server
 " Other_Source: github.com/yangyangwithgnu/use_vim_as_ide
+" Other_Source: medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 "==========================================
 
 " Notice in Vundle Config, filetype is first turned off
@@ -105,7 +106,7 @@ let NERDTreeWinPos="left"
 " 显示隐藏文件
 let NERDTreeShowHidden=1
 " NERDTree 子窗口中不显示冗余帮助信息
-let NERDTreeMinimalUI=1
+" let NERDTreeMinimalUI=1
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
 "close vim if the only window left open is a NERDTree
@@ -135,6 +136,18 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " use fzf for file browsing, need to install fzf first
 set rtp+=~/.fzf
+Plugin 'junegunn/fzf.vim'
+" from junegunn's fzfvim github readme:
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " for undo review
 Plugin 'mbbill/undotree'
