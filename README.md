@@ -1,3 +1,6 @@
+## tanuki version Aug2018 Screenshot:
+![Sample PNG](/vimrc_v3.png "Screenshot")
+
 ## tanuki version Jul2018 Screenshot:
 ![Sample PNG](/vimrc_v2.png "Screenshot")
 
