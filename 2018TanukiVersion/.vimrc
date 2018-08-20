@@ -230,6 +230,9 @@ set background=dark
 colorscheme molokai
 "colorscheme phd
 
+" disable the blinking matching parentheses
+let loaded_matchparen = 1
+
 set winaltkeys=no
 set ai!
 set vb!
@@ -249,7 +252,7 @@ set hlsearch
 " do incremental searching, search as you type
 set incsearch
 " 禁止在搜索到文件两端时重新搜索
-set nowrapscan
+" set nowrapscan
 " search ignore case
 set ignorecase
 " no ignorecase if Uppercase char present
@@ -279,7 +282,7 @@ set noswapfile
 set pastetoggle=<F2>
 
 " share the clipboard
-set clipboard=unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 " encoding
 set encoding=utf-8
