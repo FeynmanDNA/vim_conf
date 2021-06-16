@@ -1,7 +1,7 @@
 "==========================================
 " Author:  FeynmanDNA
-" Version: 1.5
-" Last_modify: 2018-Dec-15
+" Version: 1.6
+" Last_modify: 2019-May-27
 " Main_Source: Olafs Vandans' vimrc in early 2017
 " Other_Source: github.com/wklken/vim-for-server
 " Other_Source: github.com/yangyangwithgnu/use_vim_as_ide
@@ -165,7 +165,7 @@ let g:NERDSpaceDelims=1
 "<leader>cy   先复制, 再注解(p可以进行黏贴)
 
 " Auto Pairs Insert or delete brackets, parens, quotes in pair.
-Plugin 'jiangmiao/auto-pairs'
+" Plugin 'jiangmiao/auto-pairs'
 
 
 " All of your Plugins must be added before the following line
@@ -191,6 +191,9 @@ filetype plugin indent on    " required
 
 syntax enable
 syntax on
+
+" display line numebrs
+set number
 
 " set binary to preserve EOL
 set binary
@@ -334,10 +337,10 @@ au BufRead,BufNewFile */Nginx/* set ft=nginx
 
 " ============================ key map ============================
 "Key mappings
-imap jj <esc>
+" imap jj <esc>
 "map oo o<Esc>
-imap <C-j> <esc>
-imap <S-CR> <esc>
+" imap <C-j> <esc>
+" imap <S-CR> <esc>
 map <Space> i <esc>
 " map <Tab> i	<esc>
 
